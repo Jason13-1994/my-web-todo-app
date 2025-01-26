@@ -3,10 +3,14 @@ import functions
 
 todos = functions.get_todos()
 
+st.set_page_config(layout="wide")
+
 def add_todo():
     todo = st.session_state["new_todo"] + "\n" # st.session_state - Stores persistent values across reruns.
     todos.append(todo)
     functions.write_todos(todos)
+
+st.text_input(label=" ", placeholder="Enter a new task...", on_change=add_todo, key="new_todo")
 
 st.title("My Todo App")
 st.subheader("Jason's new todo app")
@@ -19,5 +23,3 @@ for index, todo in enumerate(todos):
         functions.write_todos(todos)
         del st.session_state[todo]
         st.rerun()
-
-st.text_input(label=" ", placeholder="Enter a new task...", on_change=add_todo, key="new_todo")
